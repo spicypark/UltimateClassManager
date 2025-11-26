@@ -21,15 +21,12 @@ public class TeacherCalendarPanel extends JPanel {
         this.setLayout(new BorderLayout(5, 5));
         this.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         
-        // Create top panel with navigation controls
         JPanel topPanel = createTopPanel();
         this.add(topPanel, BorderLayout.NORTH);
         
-        // Create days of week header
         JPanel weekHeaderPanel = createWeekHeaderPanel();
         this.add(weekHeaderPanel, BorderLayout.CENTER);
         
-        // Create days grid panel
         daysPanel = new JPanel(new GridLayout(0, 7, 2, 2));
         JPanel centerPanel = new JPanel(new BorderLayout());
         centerPanel.add(weekHeaderPanel, BorderLayout.NORTH);
@@ -48,11 +45,9 @@ public class TeacherCalendarPanel extends JPanel {
     private JPanel createTopPanel() {
         JPanel topPanel = new JPanel(new BorderLayout(5, 5));
         
-        // Month/Year label in center
         monthYearLabel = new JLabel("", SwingConstants.CENTER);
         monthYearLabel.setFont(new Font("Arial", Font.BOLD, 16));
         
-        // Left controls (previous year, previous month)
         JPanel leftPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 5, 0));
         JButton prevYearButton = new JButton("<<");
         JButton prevMonthButton = new JButton("<");
@@ -61,7 +56,6 @@ public class TeacherCalendarPanel extends JPanel {
         leftPanel.add(prevYearButton);
         leftPanel.add(prevMonthButton);
         
-        // Right controls (next month, next year)
         JPanel rightPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT, 5, 0));
         JButton nextMonthButton = new JButton(">");
         JButton nextYearButton = new JButton(">>");
@@ -107,20 +101,17 @@ public class TeacherCalendarPanel extends JPanel {
     }
     
     public void updateCalendar() {
-        // Update month/year label
         String[] months = {"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
         int month = calendar.get(Calendar.MONTH);
         int year = calendar.get(Calendar.YEAR);
         monthYearLabel.setText(months[month] + " " + year);
         
-        // Get calendar information
         Calendar temp = (Calendar) calendar.clone();
         temp.set(Calendar.DAY_OF_MONTH, 1);
         int firstDayOfWeek = temp.get(Calendar.DAY_OF_WEEK) - 1;
         int daysInMonth = calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
         int currentDay = calendar.get(Calendar.DAY_OF_MONTH);
         
-        // Update day buttons
         int dayCounter = 1;
         for (int i = 0; i < 6; i++) {
             for (int j = 0; j < 7; j++) {
@@ -136,7 +127,6 @@ public class TeacherCalendarPanel extends JPanel {
                     dayButtons[i][j].removeActionListener(dayButtons[i][j].getActionListeners().length > 0 ? dayButtons[i][j].getActionListeners()[0] : null);
                     dayButtons[i][j].addActionListener(e -> onDateClicked(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH) + 1, dayHolder));
                     
-                    // Highlight current day
                     if (dayCounter == currentDay && month == CURRENT_MONTH && year == CURRENT_YEAR) {
                         dayButtons[i][j].setBackground(new Color(184, 210, 255));
                     }
