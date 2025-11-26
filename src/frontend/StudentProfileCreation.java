@@ -161,8 +161,6 @@ public class StudentProfileCreation extends JPanel {
                     ManagerFrame.getInstance().revalidate();
                     ManagerFrame.getInstance().repaint();
                     ManagerFrame.getInstance().setTitle(PageNames.PROFILE_VIEWER + IndividualProfileViewer.getInstance().getCurrentProfile().getFirstName() + " " + IndividualProfileViewer.getInstance().getCurrentProfile().getLastName());
-                    // Save updated profiles to disk
-                    backend.Database.saveStudentProfiles(frontend.StudentProfileOverview.getInstance().profiles);
                 }
                 
                 firstNameInput.setText("");

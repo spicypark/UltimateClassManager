@@ -13,17 +13,10 @@ public class Teacher {
     private Teacher() {
         // this.totalBalance = 0;
         packages.add(new ClassPackage("Test Package", 10, 599.99));
-        // Load previously saved classes (if any)
-        ArrayList<ArtClass> loaded = Database.loadTeacherClasses();
-        if (loaded != null) {
-            for (ArtClass c : loaded) {
-                allClasses.add(c);
-            }
-        }
         
     }
 
-    public void addArtClass(ArtClass c) {allClasses.add(c); Database.saveTeacherClasses(allClasses);}    
+    public void addArtClass(ArtClass c) {allClasses.add(c);}
     public ArrayList<ArtClass> getAllClasses() {return allClasses;}
     public boolean hasClassOnDay(LocalDate d) {
         for (int i = 0; i < allClasses.size(); i++) {

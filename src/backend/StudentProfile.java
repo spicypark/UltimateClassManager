@@ -12,7 +12,7 @@ public class StudentProfile {
     private ArrayList<ClassPackage> futurePackages = new ArrayList<ClassPackage>();
     private ArrayList<ArtClass> studentClasses = new ArrayList<ArtClass>();
     private ArrayList<StudentBreak> studentBreaks = new ArrayList<StudentBreak>();
-    private transient JButton overviewButton;
+    private JButton overviewButton;
 
     public StudentProfile(String firstName, String lastName, int age, double balance) {
         studentFirstName = firstName;
@@ -20,14 +20,6 @@ public class StudentProfile {
         studentAge = age;
         studentBalance = balance;
         overviewButton = new JButton(studentLastName + ", " + studentFirstName + "  |  " + age + "  |  $" + balance);
-    }
-
-    public void rebuildButton() {
-        this.overviewButton = new JButton(studentLastName + ", " + studentFirstName + "  |  " + studentAge + "  |  $" + studentBalance);
-        this.overviewButton.setFont(new java.awt.Font("Arial", java.awt.Font.PLAIN, 24));
-        this.overviewButton.setPreferredSize(new java.awt.Dimension(200, 50));
-        this.overviewButton.setMinimumSize(new java.awt.Dimension(200, 50));
-        this.overviewButton.setMaximumSize(new java.awt.Dimension(Integer.MAX_VALUE, 50));
     }
 
     public String getFirstName() {return studentFirstName;}
@@ -49,9 +41,6 @@ public class StudentProfile {
     public ArrayList<StudentBreak> getStudentBreaks() {return studentBreaks;}
     public JButton getButton() {return overviewButton;}
     public void updateButton() {
-        if (overviewButton == null) {
-            rebuildButton();
-        }
         overviewButton.setText(studentLastName + ", " + studentFirstName + "  |  " + studentAge + "  |  $" + studentBalance);
     }
 }

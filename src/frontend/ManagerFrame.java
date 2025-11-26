@@ -1,11 +1,7 @@
 package frontend;
 
 import java.awt.Dimension;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 import javax.swing.JFrame;
-import backend.Database;
-import backend.Teacher;
 
 public class ManagerFrame extends JFrame {
     private static ManagerFrame instance = null;
@@ -16,14 +12,6 @@ public class ManagerFrame extends JFrame {
         this.setTitle(PageNames.HOME);
         this.setMinimumSize(new Dimension(1000, 750));
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.addWindowListener(new WindowAdapter() {
-            @Override
-            public void windowClosing(WindowEvent e) {
-                // Save any data before exit
-                Database.saveStudentProfiles(StudentProfileOverview.getInstance().profiles);
-                Database.saveTeacherClasses(Teacher.getInstance().getAllClasses());
-            }
-        });
         this.setVisible(true);
     }
 

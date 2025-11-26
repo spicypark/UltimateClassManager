@@ -12,7 +12,6 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import java.util.ArrayList;
 import backend.StudentProfile;
-import backend.Database;
 
 public class StudentProfileOverview extends JPanel {
     private static StudentProfileOverview instance = null;
@@ -75,33 +74,6 @@ public class StudentProfileOverview extends JPanel {
         contentPanel.setBackground(new Color(0xe6e6fa));
         this.add(optionsPanel, java.awt.BorderLayout.NORTH);
         this.add(scrollPane, java.awt.BorderLayout.CENTER);
-
-        // Load saved profiles, recreate buttons and listeners
-        ArrayList<StudentProfile> loaded = Database.loadStudentProfiles();
-        if (loaded != null) {
-            for (StudentProfile s : loaded) {
-                this.profiles.add(s);
-                s.rebuildButton();
-                JButton overviewButton = s.getButton();
-                overviewButton.setPreferredSize(new Dimension(200, 50));
-                overviewButton.setMinimumSize(new Dimension(200, 50));
-                overviewButton.setMaximumSize(new Dimension(Integer.MAX_VALUE, 50));
-                overviewButton.setFont(new Font("Arial", Font.PLAIN, 24));
-                overviewButton.setBackground(new Color(237, 237, 237));
-                contentPanel.add(overviewButton);
-                overviewButton.addActionListener(new ActionListener() {
-                    public void actionPerformed(ActionEvent e) {
-                        IndividualProfileViewer.getInstance().displayProfile(s);
-                        ManagerFrame.getInstance().setContentPane(IndividualProfileViewer.getInstance());
-                        ManagerFrame.getInstance().revalidate();
-                        ManagerFrame.getInstance().repaint();
-                        ManagerFrame.getInstance().setTitle(PageNames.PROFILE_VIEWER + s.getFirstName() + " " + s.getLastName());
-                    }
-                });
-            }
-            contentPanel.revalidate();
-            contentPanel.repaint();
-        }
     }
 
     public void addStudentProfile(StudentProfile s) {
@@ -115,7 +87,6 @@ public class StudentProfileOverview extends JPanel {
         contentPanel.add(overviewButton);
         contentPanel.revalidate();
         contentPanel.repaint();
-        Database.saveStudentProfiles(profiles);
 
         overviewButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -133,9 +104,6 @@ public class StudentProfileOverview extends JPanel {
             if (profiles.get(i).equals(s)) {
                 profiles.remove(i);
                 contentPanel.remove(i);
-                Database.saveStudentProfiles(profiles);
-                contentPanel.revalidate();
-                contentPanel.repaint();
             }
         }
     }
