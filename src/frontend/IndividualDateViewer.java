@@ -108,15 +108,16 @@ public class IndividualDateViewer extends JPanel {
                 contentPanel.revalidate();
                 contentPanel.repaint();
                 
-                // classButton.addActionListener(new ActionListener() {
-                //     public void actionPerformed(ActionEvent e) {
-                //         // IndividualClassViewer.getInstance().displayClass(c);
-                //         ManagerFrame.getInstance().setContentPane(IndividualClassViewer.getInstance());
-                //         ManagerFrame.getInstance().revalidate();
-                //         ManagerFrame.getInstance().repaint();
-                //         ManagerFrame.getInstance().setTitle(PageNames.CLASS_VIEWER + c.getClassName());
-                //     }
-                // });
+                c.getButton().addActionListener(new ActionListener() {
+                    public void actionPerformed(ActionEvent e) {
+                        // IndividualClassViewer.getInstance().displayClass(c);
+                        IndividualClassViewer.getInstance().setSelectedClass(c);
+                        ManagerFrame.getInstance().setContentPane(IndividualClassViewer.getInstance());
+                        ManagerFrame.getInstance().revalidate();
+                        ManagerFrame.getInstance().repaint();
+                        ManagerFrame.getInstance().setTitle(PageNames.CLASS_VIEWER + c.getClassName());
+                    }
+                });
             }
         }
     }

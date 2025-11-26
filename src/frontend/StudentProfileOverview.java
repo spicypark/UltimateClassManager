@@ -76,7 +76,6 @@ public class StudentProfileOverview extends JPanel {
         this.add(optionsPanel, java.awt.BorderLayout.NORTH);
         this.add(scrollPane, java.awt.BorderLayout.CENTER);
 
-        // Load saved profiles, recreate buttons and listeners
         ArrayList<StudentProfile> loaded = Database.loadStudentProfiles();
         if (loaded != null) {
             for (StudentProfile s : loaded) {

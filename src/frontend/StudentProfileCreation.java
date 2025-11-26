@@ -12,6 +12,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
+
+import backend.Database;
 import backend.StudentProfile;
 
 public class StudentProfileCreation extends JPanel {
@@ -22,10 +24,7 @@ public class StudentProfileCreation extends JPanel {
     private JPanel optionsPanel;
     private JPanel contentPanel;
 
-    // private int editing = 0; //0 = creating, 1 = editing
-    // private StudentProfile IndividualProfileViewer.getInstance().getCurrentProfile();
-
-    private StudentProfileCreation(int mode) { //0 = creating, 1 = editing
+    private StudentProfileCreation(int mode) {
         super();
         this.setLayout(new BorderLayout());
         this.setBackground(new Color(0xe6e6fa));
@@ -161,8 +160,7 @@ public class StudentProfileCreation extends JPanel {
                     ManagerFrame.getInstance().revalidate();
                     ManagerFrame.getInstance().repaint();
                     ManagerFrame.getInstance().setTitle(PageNames.PROFILE_VIEWER + IndividualProfileViewer.getInstance().getCurrentProfile().getFirstName() + " " + IndividualProfileViewer.getInstance().getCurrentProfile().getLastName());
-                    // Save updated profiles to disk
-                    backend.Database.saveStudentProfiles(frontend.StudentProfileOverview.getInstance().profiles);
+                    Database.saveStudentProfiles(frontend.StudentProfileOverview.getInstance().profiles);
                 }
                 
                 firstNameInput.setText("");
@@ -180,13 +178,10 @@ public class StudentProfileCreation extends JPanel {
     }
 
     public void setEditing(StudentProfile profile) {
-        // editing = 1;
-        // IndividualProfileViewer.getInstance().getCurrentProfile() = profile;
         instance = new StudentProfileCreation(1);
     }
 
     public void setCreating() {
-        // editing = 0;
         instance = new StudentProfileCreation(0);
     }
     

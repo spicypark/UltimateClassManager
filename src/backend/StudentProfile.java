@@ -10,8 +10,6 @@ public class StudentProfile {
     private double studentBalance;
     private ClassPackage currentPackage;
     private ArrayList<ClassPackage> futurePackages = new ArrayList<ClassPackage>();
-    private ArrayList<ArtClass> studentClasses = new ArrayList<ArtClass>();
-    private ArrayList<StudentBreak> studentBreaks = new ArrayList<StudentBreak>();
     private transient JButton overviewButton;
 
     public StudentProfile(String firstName, String lastName, int age, double balance) {
@@ -43,10 +41,6 @@ public class StudentProfile {
     public ClassPackage getPackage() {return currentPackage;}
     public ArrayList<ClassPackage> getFuturePackages() {return futurePackages;}
 
-    public void addStudentClass(ArtClass c) {studentClasses.add(c);}
-    public ArrayList<ArtClass> getStudentClasses() {return studentClasses;}
-    public void addStudentBreak(StudentBreak b) {studentBreaks.add(b);}
-    public ArrayList<StudentBreak> getStudentBreaks() {return studentBreaks;}
     public JButton getButton() {return overviewButton;}
     public void updateButton() {
         if (overviewButton == null) {

@@ -2,22 +2,23 @@ package frontend;
 
 import javax.swing.*;
 
+import backend.StudentProfile;
 import backend.Teacher;
 
 import java.awt.*;
 import java.time.LocalDate;
-// import java.awt.event.*;
 import java.util.Calendar;
 
-public class CalendarPanel extends JPanel {
+public class StudentCalendarPanel extends JPanel {
     private Calendar calendar;
     private JLabel monthYearLabel;
     private JPanel daysPanel;
     private JButton[][] dayButtons;
     private final int CURRENT_MONTH;
     private final int CURRENT_YEAR;
+    private StudentProfile currentStudent;
     
-    public CalendarPanel() {
+    public StudentCalendarPanel() {
         calendar = Calendar.getInstance();
         this.setLayout(new BorderLayout(5, 5));
         this.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
@@ -141,9 +142,9 @@ public class CalendarPanel extends JPanel {
                     if (dayCounter == currentDay && month == CURRENT_MONTH && year == CURRENT_YEAR) {
                         dayButtons[i][j].setBackground(new Color(184, 210, 255));
                     }
-                    else if (Teacher.getInstance().hasClassOnDay(LocalDate.of(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH) + 1, dayHolder))) {
-                        dayButtons[i][j].setBackground(new Color(191, 255, 203));
-                    }
+                    // else if (Teacher.getInstance().hasClassOnDay(LocalDate.of(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH) + 1, dayHolder))) {
+                    //     dayButtons[i][j].setBackground(new Color(191, 255, 203));
+                    // }
                     else {
                         dayButtons[i][j].setBackground(new Color(0xe6e6fa));
                     }

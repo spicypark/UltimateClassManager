@@ -21,7 +21,7 @@ public class Home extends JPanel {
     private JPanel infoPanel;
     private JPanel featurePanel;
     private JLabel balanceValue;
-    private CalendarPanel calendarPanel;
+    private TeacherCalendarPanel calendarPanel;
 
     private Home() {
         super();
@@ -72,7 +72,7 @@ public class Home extends JPanel {
         calendarLabel.setMaximumSize(new Dimension(Integer.MAX_VALUE, 80));
         featurePanel.add(calendarLabel);
 
-        calendarPanel = new CalendarPanel(){
+        calendarPanel = new TeacherCalendarPanel(){
             @Override
             public void onDateClicked(int year, int month, int day) {
                 super.onDateClicked(year, month, day);
@@ -91,7 +91,7 @@ public class Home extends JPanel {
         this.add(featurePanel);
     }
 
-    public CalendarPanel getCalendarPanel() {
+    public TeacherCalendarPanel getCalendarPanel() {
         return calendarPanel;
     }
 

@@ -68,7 +68,6 @@ public class Database {
 	public static ArrayList<StudentProfile> loadStudentProfiles() {
 		ArrayList<StudentProfile> profiles = loadList(PROFILES_FILE, StudentProfile.class);
 		if (profiles == null) return null;
-		// rebuild GUI elements that were marked transient
 		for (StudentProfile sp : profiles) {
 			sp.rebuildButton();
 		}

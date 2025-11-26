@@ -6,14 +6,11 @@ import java.util.ArrayList;
 public class Teacher {
     private static Teacher instance = null;
 
-    // private int totalBalance;
     private static ArrayList<ClassPackage> packages = new ArrayList<ClassPackage>();
     private ArrayList<ArtClass> allClasses = new ArrayList<ArtClass>();
 
     private Teacher() {
-        // this.totalBalance = 0;
         packages.add(new ClassPackage("Test Package", 10, 599.99));
-        // Load previously saved classes (if any)
         ArrayList<ArtClass> loaded = Database.loadTeacherClasses();
         if (loaded != null) {
             for (ArtClass c : loaded) {

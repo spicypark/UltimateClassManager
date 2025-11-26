@@ -1,0 +1,30 @@
+[
+  {
+    "capacity": 8,
+    "classDateTime": "2025-11-27T12:00",
+    "lengthInHours": 1.0,
+    "className": "testA",
+    "enrolledStudents": []
+  },
+  {
+    "capacity": 1010,
+    "classDateTime": "2025-12-31T04:45",
+    "lengthInHours": 2.5,
+    "className": "TestB",
+    "enrolledStudents": []
+  },
+  {
+    "capacity": 8,
+    "classDateTime": "2025-11-27T18:45",
+    "lengthInHours": 1.5,
+    "className": "TestBClass",
+    "enrolledStudents": []
+  },
+  {
+    "capacity": 10,
+    "classDateTime": "2025-11-29T16:15",
+    "lengthInHours": 1.5,
+    "className": "TestClassC",
+    "enrolledStudents": []
+  }
+]

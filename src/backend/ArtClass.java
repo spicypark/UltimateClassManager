@@ -3,6 +3,8 @@ package backend;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+
 import javax.swing.JButton;
 
 public class ArtClass {
@@ -12,6 +14,7 @@ public class ArtClass {
     private ClassPackage classPackage;
     private String className;
     private transient JButton classButton;
+    private ArrayList<StudentProfile> enrolledStudents = new ArrayList<StudentProfile>();
 
     public ArtClass(String name, int capacity, LocalDateTime dt, double length) {
         this.className = name;
@@ -42,7 +45,8 @@ public class ArtClass {
     public double getLengthInHours() {return this.lengthInHours;}
     public void setClassPackage(ClassPackage p) {this.classPackage = p;}
     public ClassPackage getClassPackage() {return this.classPackage;}
-    // public void setClassName(String n) {this.className = n;}
     public String getClassName() {return this.className;}
-    public JButton getButton() { if (this.classButton == null) rebuildButton(); return this.classButton; }
+    public JButton getButton() { if (this.classButton == null) rebuildButton(); return this.classButton;}
+    public ArrayList<StudentProfile> getEnrolledStudents() {return this.enrolledStudents;}
+    public void enrollStudent(StudentProfile s) {this.enrolledStudents.add(s);}
 }

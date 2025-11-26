@@ -19,7 +19,6 @@ public class ManagerFrame extends JFrame {
         this.addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
-                // Save any data before exit
                 Database.saveStudentProfiles(StudentProfileOverview.getInstance().profiles);
                 Database.saveTeacherClasses(Teacher.getInstance().getAllClasses());
             }
