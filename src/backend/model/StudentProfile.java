@@ -46,9 +46,6 @@ public class StudentProfile {
         overviewButton.setText(studentLastName + ", " + studentFirstName + "  |  " + studentAge + "  |  $" + studentBalance);
     }
 
-    /**
-     * Checks if this student has a class on the given date by scanning all ArtClasses.
-     */
     public boolean hasClassOnDay(LocalDate date) {
         for (ArtClass c : Teacher.getInstance().getAllClasses()) {
             if (c.getClassDateTime().toLocalDate().equals(date)) {
@@ -60,16 +57,10 @@ public class StudentProfile {
         return false;
     }
 
-    /**
-     * Checks if this student is enrolled in the given class.
-     */
     public boolean isEnrolledIn(ArtClass artClass) {
         return artClass.isStudentEnrolled(this);
     }
 
-    /**
-     * Checks if this student was marked absent for any class on the given date.
-     */
     public boolean hasAbsenceOnDay(LocalDate date) {
         for (ArtClass c : Teacher.getInstance().getAllClasses()) {
             if (c.getClassDateTime().toLocalDate().equals(date)) {

@@ -63,7 +63,6 @@ public class IndividualDateViewer extends JPanel {
         createClass.setMaximumSize(new Dimension(Integer.MAX_VALUE, 50));
         createClass.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                // Check if the date is blocked (break or holiday)
                 if (Teacher.getInstance().isBlockedDay(selectedDate)) {
                     JOptionPane.showMessageDialog(createClass, 
                         "Cannot add classes on this day - it is a break day or holiday.",

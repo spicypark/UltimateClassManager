@@ -51,7 +51,6 @@ public class Home extends JPanel {
         infoPanel.setLayout(new BoxLayout(infoPanel, BoxLayout.Y_AXIS));
         featurePanel.setLayout(new BoxLayout(featurePanel, BoxLayout.Y_AXIS));
 
-        // === RIGHT SIDE: Buttons and Total Earnings ===
         homeToOverview = new JButton("Go to Profile Overview  >>");
         infoPanel.add(homeToOverview);
         homeToOverview.setFont(new Font("Arial", Font.PLAIN, 24));
@@ -92,10 +91,8 @@ public class Home extends JPanel {
             exportPaymentsToCSV();
         }});
 
-        // Vertical glue to push earnings to center of remaining space
         infoPanel.add(Box.createVerticalGlue());
 
-        // Total earnings section - centered in remaining space
         JLabel earnings = new JLabel("Total Earnings:");
         earnings.setHorizontalAlignment(SwingConstants.CENTER);
         earnings.setFont(new Font("Arial", Font.PLAIN, 48));
@@ -112,10 +109,8 @@ public class Home extends JPanel {
         balanceValue.setMaximumSize(new Dimension(Integer.MAX_VALUE, 50));
         infoPanel.add(balanceValue);
 
-        // Vertical glue after earnings to complete centering
         infoPanel.add(Box.createVerticalGlue());
 
-        // === LEFT SIDE: Calendar and Add Break button ===
         JLabel calendarLabel = new JLabel("Teacher Calendar");
         calendarLabel.setHorizontalAlignment(SwingConstants.CENTER);
         calendarLabel.setFont(new Font("Arial", Font.PLAIN, 40));
@@ -139,7 +134,6 @@ public class Home extends JPanel {
         };
         featurePanel.add(calendarPanel);
 
-        // Add Break button below the calendar
         addBreakButton = new JButton("Add Teacher Break");
         featurePanel.add(addBreakButton);
         addBreakButton.setFont(new Font("Arial", Font.PLAIN, 24));
@@ -154,7 +148,6 @@ public class Home extends JPanel {
             ManagerFrame.getInstance().setTitle("Add Teacher Break");
         }});
 
-        // Add panels: featurePanel (calendar) on LEFT, infoPanel (buttons) on RIGHT
         this.add(featurePanel);
         this.add(infoPanel);
     }
@@ -164,7 +157,6 @@ public class Home extends JPanel {
     }
 
     public void updateBalance() {
-        // Calculate total earnings from all payments
         double total = Teacher.getInstance().getTotalEarnings();
         balanceValue.setText(String.format("$%.2f", total));
     }

@@ -21,15 +21,9 @@ import org.mindrot.jbcrypt.BCrypt;
 import frontend.ManagerFrame;
 import frontend.util.PageNames;
 
-/**
- * Login page for teacher authentication.
- * Uses BCrypt to securely verify the password.
- */
 public class Login extends JPanel {
     private static Login instance = null;
 
-    // Pre-hashed password for "Placeholder311" using BCrypt
-    // Generated with BCrypt.hashpw("Placeholder311", BCrypt.gensalt())
     private static final String USERNAME = "FayArt";
     private static final String PASSWORD_HASH = "$2a$10$jXVSZ.z8bzjSy9DCtMro9uxMV5Ei3p8cDZxfz2xQE2UkLFg7fPc92";
 
@@ -47,7 +41,6 @@ public class Login extends JPanel {
         contentPanel.setLayout(new BoxLayout(contentPanel, BoxLayout.Y_AXIS));
         contentPanel.setBackground(new Color(0xe6e6fa));
 
-        // Title
         JLabel title = new JLabel("Ultimate Class Manager");
         title.setHorizontalAlignment(SwingConstants.CENTER);
         title.setAlignmentX(CENTER_ALIGNMENT);
@@ -57,7 +50,6 @@ public class Login extends JPanel {
         title.setMaximumSize(new Dimension(Integer.MAX_VALUE, 100));
         contentPanel.add(title);
 
-        // Subtitle
         JLabel subtitle = new JLabel("Please log in to continue");
         subtitle.setHorizontalAlignment(SwingConstants.CENTER);
         subtitle.setAlignmentX(CENTER_ALIGNMENT);
@@ -67,7 +59,6 @@ public class Login extends JPanel {
         subtitle.setMaximumSize(new Dimension(Integer.MAX_VALUE, 50));
         contentPanel.add(subtitle);
 
-        // Spacer
         JPanel spacer1 = new JPanel();
         spacer1.setBackground(new Color(0xe6e6fa));
         spacer1.setPreferredSize(new Dimension(Integer.MAX_VALUE, 50));
@@ -75,7 +66,6 @@ public class Login extends JPanel {
         spacer1.setMaximumSize(new Dimension(Integer.MAX_VALUE, 50));
         contentPanel.add(spacer1);
 
-        // Username label
         JLabel usernameLabel = new JLabel("Username:");
         usernameLabel.setHorizontalAlignment(SwingConstants.CENTER);
         usernameLabel.setAlignmentX(CENTER_ALIGNMENT);
@@ -85,7 +75,6 @@ public class Login extends JPanel {
         usernameLabel.setMaximumSize(new Dimension(Integer.MAX_VALUE, 40));
         contentPanel.add(usernameLabel);
 
-        // Username field
         usernameField = new JTextField(20);
         usernameField.setFont(new Font("Arial", Font.PLAIN, 24));
         usernameField.setHorizontalAlignment(JTextField.CENTER);
@@ -95,7 +84,6 @@ public class Login extends JPanel {
         usernameField.setAlignmentX(CENTER_ALIGNMENT);
         contentPanel.add(usernameField);
 
-        // Password label
         JLabel passwordLabel = new JLabel("Password:");
         passwordLabel.setHorizontalAlignment(SwingConstants.CENTER);
         passwordLabel.setAlignmentX(CENTER_ALIGNMENT);
@@ -105,7 +93,6 @@ public class Login extends JPanel {
         passwordLabel.setMaximumSize(new Dimension(Integer.MAX_VALUE, 40));
         contentPanel.add(passwordLabel);
 
-        // Password field
         passwordField = new JPasswordField(20);
         passwordField.setFont(new Font("Arial", Font.PLAIN, 24));
         passwordField.setHorizontalAlignment(JTextField.CENTER);
@@ -115,7 +102,6 @@ public class Login extends JPanel {
         passwordField.setAlignmentX(CENTER_ALIGNMENT);
         contentPanel.add(passwordField);
 
-        // Spacer
         JPanel spacer2 = new JPanel();
         spacer2.setBackground(new Color(0xe6e6fa));
         spacer2.setPreferredSize(new Dimension(Integer.MAX_VALUE, 30));
@@ -123,7 +109,6 @@ public class Login extends JPanel {
         spacer2.setMaximumSize(new Dimension(Integer.MAX_VALUE, 30));
         contentPanel.add(spacer2);
 
-        // Login button
         loginButton = new JButton("Login");
         loginButton.setFont(new Font("Arial", Font.BOLD, 24));
         loginButton.setPreferredSize(new Dimension(200, 50));
@@ -137,7 +122,6 @@ public class Login extends JPanel {
         });
         contentPanel.add(loginButton);
 
-        // Allow Enter key to submit
         passwordField.addActionListener(e -> attemptLogin());
         usernameField.addActionListener(e -> passwordField.requestFocus());
 
@@ -155,15 +139,12 @@ public class Login extends JPanel {
             return;
         }
 
-        // Verify credentials using BCrypt
         if (enteredUsername.equals(USERNAME) && BCrypt.checkpw(enteredPassword, PASSWORD_HASH)) {
-            // Login successful - go to home
             ManagerFrame.getInstance().setContentPane(Home.getInstance());
             ManagerFrame.getInstance().revalidate();
             ManagerFrame.getInstance().repaint();
             ManagerFrame.getInstance().setTitle(PageNames.HOME);
             
-            // Clear fields for security
             usernameField.setText("");
             passwordField.setText("");
         } else {

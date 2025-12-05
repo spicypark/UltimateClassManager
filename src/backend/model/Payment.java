@@ -2,10 +2,6 @@ package backend.model;
 
 import java.time.LocalDateTime;
 
-/**
- * Represents a payment transaction when a student enrolls in a class.
- * Stores only primitive/String data to avoid circular GSON references.
- */
 public class Payment {
     private double paymentAmount;
     private String className;
@@ -41,9 +37,6 @@ public class Payment {
         return studentName;
     }
 
-    /**
-     * Returns a CSV-formatted line for this payment.
-     */
     public String toCSV() {
         return String.format("%.2f,%s,%s,%s,%s",
             paymentAmount,
@@ -53,9 +46,6 @@ public class Payment {
             studentName);
     }
 
-    /**
-     * Returns the CSV header for payments.
-     */
     public static String getCSVHeader() {
         return "Payment Amount,Class Name,Class Date/Time,Transaction Date/Time,Student Name";
     }

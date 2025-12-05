@@ -129,7 +129,6 @@ public class TeacherCalendarPanel extends JPanel {
                         dayButtons[i][j].setBackground(new Color(184, 210, 255));
                     }
                     else if (Teacher.getInstance().isBlockedDay(LocalDate.of(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH) + 1, dayHolder))) {
-                        // Break day or holiday - RED
                         dayButtons[i][j].setBackground(new Color(255, 150, 150));
                     }
                     else if (Teacher.getInstance().hasClassOnDay(LocalDate.of(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH) + 1, dayHolder))) {

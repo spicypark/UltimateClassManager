@@ -15,12 +15,10 @@ public class ManagerFrame extends JFrame {
     private static ManagerFrame instance = null;
 
     private ManagerFrame() {        
-        // Initialize these panels but don't display them yet
         StudentProfileOverview.getInstance();
         Home.getInstance();
         Home.getInstance().updateBalance();
         
-        // Start with Login page
         this.add(Login.getInstance());
         this.setTitle(PageNames.LOGIN);
         this.setMinimumSize(new Dimension(1000, 750));

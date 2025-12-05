@@ -19,28 +19,24 @@ public class Teacher {
     private ArrayList<TeacherBreak> breaks = new ArrayList<TeacherBreak>();
 
     private Teacher() {
-        // Load classes
         ArrayList<ArtClass> loadedClasses = Database.loadTeacherClasses();
         if (loadedClasses != null) {
             for (ArtClass c : loadedClasses) {
                 allClasses.add(c);
             }
         }
-        // Load packages
         ArrayList<ClassPackage> loadedPackages = Database.loadClassPackages();
         if (loadedPackages != null) {
             for (ClassPackage p : loadedPackages) {
                 packages.add(p);
             }
         }
-        // Load payments
         ArrayList<Payment> loadedPayments = Database.loadPayments();
         if (loadedPayments != null) {
             for (Payment pay : loadedPayments) {
                 payments.add(pay);
             }
         }
-        // Load breaks
         ArrayList<TeacherBreak> loadedBreaks = Database.loadTeacherBreaks();
         if (loadedBreaks != null) {
             for (TeacherBreak b : loadedBreaks) {
@@ -65,7 +61,6 @@ public class Teacher {
         return false;
     }
 
-    // Package management
     public ArrayList<ClassPackage> getPackages() {return packages;}
     
     public void addPackage(ClassPackage p) {
@@ -78,7 +73,6 @@ public class Teacher {
         Database.saveClassPackages(packages);
     }
 
-    // Payment management
     public ArrayList<Payment> getPayments() {
         return payments;
     }
@@ -96,7 +90,6 @@ public class Teacher {
         return total;
     }
 
-    // Break management
     public ArrayList<TeacherBreak> getBreaks() {
         return breaks;
     }
@@ -104,7 +97,6 @@ public class Teacher {
     public void addBreak(TeacherBreak b) {
         breaks.add(b);
         Database.saveTeacherBreaks(breaks);
-        // Remove any classes scheduled during this break
         removeClassesDuringBreak(b);
     }
 
@@ -113,9 +105,6 @@ public class Teacher {
         Database.saveTeacherBreaks(breaks);
     }
 
-    /**
-     * Checks if the given date is during a teacher break.
-     */
     public boolean isBreakDay(LocalDate date) {
         for (TeacherBreak b : breaks) {
             if (b.containsDate(date)) {
@@ -125,26 +114,19 @@ public class Teacher {
         return false;
     }
 
-    /**
-     * Checks if the given date is a holiday.
-     * Holidays: New Year's Day (Jan 1), Thanksgiving (4th Thursday of November), Christmas (Dec 25)
-     */
     public boolean isHoliday(LocalDate date) {
         int year = date.getYear();
         
-        // New Year's Day - January 1
         if (date.equals(LocalDate.of(year, 1, 1))) {
             return true;
         }
         
-        // Thanksgiving - 4th Thursday of November
         LocalDate thanksgiving = LocalDate.of(year, 11, 1)
             .with(TemporalAdjusters.dayOfWeekInMonth(4, DayOfWeek.THURSDAY));
         if (date.equals(thanksgiving)) {
             return true;
         }
         
-        // Christmas - December 25
         if (date.equals(LocalDate.of(year, 12, 25))) {
             return true;
         }
@@ -152,16 +134,10 @@ public class Teacher {
         return false;
     }
 
-    /**
-     * Checks if the given date is blocked (either a break day or a holiday).
-     */
     public boolean isBlockedDay(LocalDate date) {
         return isBreakDay(date) || isHoliday(date);
     }
 
-    /**
-     * Removes all classes scheduled during the given break period.
-     */
     private void removeClassesDuringBreak(TeacherBreak b) {
         ArrayList<ArtClass> toRemove = new ArrayList<>();
         for (ArtClass c : allClasses) {
@@ -175,9 +151,6 @@ public class Teacher {
         }
     }
 
-    /**
-     * Removes all classes scheduled on blocked days (breaks or holidays).
-     */
     public void removeClassesOnBlockedDays() {
         ArrayList<ArtClass> toRemove = new ArrayList<>();
         for (ArtClass c : allClasses) {

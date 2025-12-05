@@ -35,12 +35,10 @@ public class Database {
 
 	static {
 		GsonBuilder builder = new GsonBuilder().setPrettyPrinting();
-		// LocalDateTime adapter
 		JsonSerializer<LocalDateTime> dtSer = (src, typeOfSrc, context) -> new JsonPrimitive(src.toString());
 		JsonDeserializer<LocalDateTime> dtDeser = (json, typeOfT, context) -> LocalDateTime.parse(json.getAsString());
 		builder.registerTypeAdapter(LocalDateTime.class, dtSer);
 		builder.registerTypeAdapter(LocalDateTime.class, dtDeser);
-		// LocalDate adapter
 		JsonSerializer<LocalDate> dateSer = (src, typeOfSrc, context) -> new JsonPrimitive(src.toString());
 		JsonDeserializer<LocalDate> dateDeser = (json, typeOfT, context) -> LocalDate.parse(json.getAsString());
 		builder.registerTypeAdapter(LocalDate.class, dateSer);
@@ -103,7 +101,6 @@ public class Database {
 		return classes;
 	}
 
-	// ClassPackage persistence
 	public static boolean saveClassPackages(ArrayList<ClassPackage> packages) {
 		return saveList(packages, PACKAGES_FILE);
 	}
@@ -112,7 +109,6 @@ public class Database {
 		return loadList(PACKAGES_FILE, ClassPackage.class);
 	}
 
-	// Payment persistence
 	public static boolean savePayments(ArrayList<Payment> payments) {
 		return saveList(payments, PAYMENTS_FILE);
 	}
@@ -121,7 +117,6 @@ public class Database {
 		return loadList(PAYMENTS_FILE, Payment.class);
 	}
 
-	// Export payments to CSV
 	public static boolean exportPaymentsToCSV(ArrayList<Payment> payments, String filename) {
 		try (FileWriter writer = new FileWriter(filename)) {
 			writer.write(Payment.getCSVHeader() + "\n");
@@ -135,7 +130,6 @@ public class Database {
 		}
 	}
 
-	// TeacherBreak persistence
 	public static boolean saveTeacherBreaks(ArrayList<TeacherBreak> breaks) {
 		return saveList(breaks, BREAKS_FILE);
 	}

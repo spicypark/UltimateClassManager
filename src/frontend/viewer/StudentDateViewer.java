@@ -29,10 +29,6 @@ import frontend.home.Home;
 import frontend.overview.StudentProfileOverview;
 import frontend.util.PageNames;
 
-/**
- * StudentDateViewer allows a student to view and enroll in classes on a specific date.
- * It shows a dropdown of available classes and lets the student enroll or unenroll.
- */
 public class StudentDateViewer extends JPanel {
     private static StudentDateViewer instance = null;
 
@@ -87,7 +83,6 @@ public class StudentDateViewer extends JPanel {
         currentDateLabel.setMaximumSize(new Dimension(Integer.MAX_VALUE, 60));
         contentPanel.add(currentDateLabel);
 
-        // Section for enrolling in a class
         JLabel enrollLabel = new JLabel("Enroll in a Class:");
         enrollLabel.setHorizontalAlignment(SwingConstants.CENTER);
         enrollLabel.setAlignmentX(CENTER_ALIGNMENT);
@@ -134,7 +129,6 @@ public class StudentDateViewer extends JPanel {
 
         contentPanel.add(buttonPanel);
 
-        // Section showing enrolled classes
         enrolledClassesLabel = new JLabel("Currently Enrolled Classes on This Day:");
         enrolledClassesLabel.setHorizontalAlignment(SwingConstants.CENTER);
         enrolledClassesLabel.setAlignmentX(CENTER_ALIGNMENT);
@@ -170,7 +164,6 @@ public class StudentDateViewer extends JPanel {
     }
 
     public void refreshDisplay() {
-        // Populate class selector with all classes on this date
         classesOnDate.clear();
         classSelector.removeAllItems();
         
@@ -192,7 +185,6 @@ public class StudentDateViewer extends JPanel {
             unenrollButton.setEnabled(true);
         }
 
-        // Refresh enrolled classes panel
         enrolledPanel.removeAll();
         for (ArtClass c : classesOnDate) {
             if (c.isStudentEnrolled(currentStudent)) {
@@ -203,17 +195,13 @@ public class StudentDateViewer extends JPanel {
                 classPanel.setMinimumSize(new Dimension(600, 45));
                 classPanel.setMaximumSize(new Dimension(Integer.MAX_VALUE, 45));
 
-                // Determine attendance status
                 boolean isAbsent = c.isStudentAbsent(currentStudent);
                 String statusText = isAbsent ? " [ABSENT]" : " [ATTENDED]";
-                // Color statusColor = isAbsent ? new Color(255, 100, 100) : new Color(100, 200, 100);
                 
                 JLabel classLabel = new JLabel("• " + c.getClassName() + " at " + c.getClassDateTime().toLocalTime() + statusText);
                 classLabel.setFont(new Font("Arial", Font.PLAIN, 24));
-                // classLabel.setForeground(statusColor);
                 classPanel.add(classLabel);
 
-                // Add attendance buttons
                 final ArtClass artClass = c;
                 
                 JButton attendedButton = new JButton("Mark Attended");
@@ -272,25 +260,21 @@ public class StudentDateViewer extends JPanel {
             return;
         }
 
-        // Calculate payment amount based on class package
         double paymentAmount = 0.0;
         ClassPackage pkg = selectedClass.getClassPackage();
         if (pkg != null && pkg.getQuantity() > 0) {
             paymentAmount = pkg.getPrice() / pkg.getQuantity();
         }
 
-        // Deduct from student balance
         currentStudent.subtractBalance(paymentAmount);
         currentStudent.updateButton();
         Database.saveStudentProfiles(StudentProfileOverview.getInstance().profiles);
 
-        // Create and record payment
         String studentName = currentStudent.getFirstName() + " " + currentStudent.getLastName();
         Payment payment = new Payment(paymentAmount, selectedClass.getClassName(), 
             selectedClass.getClassDateTime(), studentName);
         Teacher.getInstance().addPayment(payment);
 
-        // Update home screen earnings display
         Home.getInstance().updateBalance();
 
         selectedClass.enrollStudent(currentStudent);

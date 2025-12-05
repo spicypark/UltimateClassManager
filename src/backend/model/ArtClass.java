@@ -14,9 +14,7 @@ public class ArtClass {
     private ClassPackage classPackage;
     private String className;
     private transient JButton classButton;
-    // Store student names as "FirstName|LastName" to avoid circular references with GSON
     private ArrayList<String> enrolledStudentNames = new ArrayList<String>();
-    // Store absent student names as "FirstName|LastName" for attendance tracking
     private ArrayList<String> absentStudentNames = new ArrayList<String>();
 
     public ArtClass(String name, int capacity, LocalDateTime dt, double length) {
@@ -87,7 +85,6 @@ public class ArtClass {
         enrolledStudentNames.remove(studentKey);
     }
 
-    // Attendance tracking methods
     public boolean isStudentAbsent(StudentProfile s) {
         if (absentStudentNames == null) return false;
         String studentKey = s.getFirstName() + "|" + s.getLastName();

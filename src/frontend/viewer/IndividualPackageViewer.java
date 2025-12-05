@@ -22,9 +22,6 @@ import frontend.ManagerFrame;
 import frontend.overview.ClassPackageOverview;
 import frontend.util.PageNames;
 
-/**
- * IndividualPackageViewer displays detailed information about a specific class package.
- */
 public class IndividualPackageViewer extends JPanel {
     private static IndividualPackageViewer instance = null;
     
@@ -102,7 +99,6 @@ public class IndividualPackageViewer extends JPanel {
         contentPanel = new JPanel();
         contentPanel.setLayout(new BoxLayout(contentPanel, BoxLayout.Y_AXIS));
 
-        // Package Name
         JLabel nameLabel = new JLabel("Package Name:");
         nameLabel.setHorizontalAlignment(SwingConstants.CENTER);
         nameLabel.setFont(new Font("Arial", Font.PLAIN, 20));
@@ -119,7 +115,6 @@ public class IndividualPackageViewer extends JPanel {
         nameValue.setMaximumSize(new Dimension(Integer.MAX_VALUE, 60));
         contentPanel.add(nameValue);
 
-        // Number of Classes
         JLabel quantityLabel = new JLabel("Number of Classes:");
         quantityLabel.setHorizontalAlignment(SwingConstants.CENTER);
         quantityLabel.setFont(new Font("Arial", Font.PLAIN, 20));
@@ -136,7 +131,6 @@ public class IndividualPackageViewer extends JPanel {
         quantityValue.setMaximumSize(new Dimension(Integer.MAX_VALUE, 60));
         contentPanel.add(quantityValue);
 
-        // Price
         JLabel priceLabel = new JLabel("Price:");
         priceLabel.setHorizontalAlignment(SwingConstants.CENTER);
         priceLabel.setFont(new Font("Arial", Font.PLAIN, 20));
@@ -181,7 +175,6 @@ public class IndividualPackageViewer extends JPanel {
             String quantityText = quantityField.getText().trim();
             String priceText = priceField.getText().trim();
 
-            // Validate inputs
             if (newName.isEmpty()) {
                 JOptionPane.showMessageDialog(this, "Package name cannot be empty.", 
                     "Invalid Input", JOptionPane.ERROR_MESSAGE);
@@ -216,15 +209,12 @@ public class IndividualPackageViewer extends JPanel {
                 return;
             }
 
-            // Apply changes
             currentPackage.setName(newName);
             currentPackage.setQuantity(newQuantity);
             currentPackage.setPrice(newPrice);
             
-            // Save to database
             Database.saveClassPackages(Teacher.getInstance().getPackages());
             
-            // Refresh display
             displayPackage(currentPackage);
             
             JOptionPane.showMessageDialog(this, "Package updated successfully!", 

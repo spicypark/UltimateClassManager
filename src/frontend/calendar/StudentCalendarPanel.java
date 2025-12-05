@@ -132,7 +132,6 @@ public class StudentCalendarPanel extends JPanel {
                     dayButtons[i][j].setEnabled(true);
                     int dayHolder = dayCounter;
                     
-                    // Remove old listeners
                     for (var listener : dayButtons[i][j].getActionListeners()) {
                         dayButtons[i][j].removeActionListener(listener);
                     }
@@ -140,26 +139,20 @@ public class StudentCalendarPanel extends JPanel {
                     
                     LocalDate buttonDate = LocalDate.of(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH) + 1, dayHolder);
                     
-                    // Determine background color based on student enrollment and teacher classes
                     if (dayCounter == currentDay && month == CURRENT_MONTH && year == CURRENT_YEAR) {
-                        // Current day - light blue
                         dayButtons[i][j].setBackground(new Color(184, 210, 255));
                     }
                     else if (Teacher.getInstance().isBlockedDay(buttonDate)) {
-                        // Break day or holiday - RED
                         dayButtons[i][j].setBackground(new Color(255, 150, 150));
                     }
                     else if (currentStudent != null && currentStudent.hasAbsenceOnDay(buttonDate)) {
-                        // Student was marked absent for a class on this day - RED
-                        dayButtons[i][j].setBackground(new Color(255, 150, 150)); // Light red
+                        dayButtons[i][j].setBackground(new Color(255, 150, 150));
                     }
                     else if (currentStudent != null && currentStudent.hasClassOnDay(buttonDate)) {
-                        // Student has a class on this day - GREEN
-                        dayButtons[i][j].setBackground(new Color(191, 255, 203)); //TODO Light green
+                        dayButtons[i][j].setBackground(new Color(191, 255, 203));
                     }
                     else if (Teacher.getInstance().hasClassOnDay(buttonDate)) {
-                        // Teacher has classes but student is not enrolled - YELLOW
-                        dayButtons[i][j].setBackground(new Color(255, 255, 150)); // Light yellow
+                        dayButtons[i][j].setBackground(new Color(255, 255, 150));
                     }
                     else {
                         dayButtons[i][j].setBackground(new Color(0xe6e6fa));

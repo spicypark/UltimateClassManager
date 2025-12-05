@@ -170,7 +170,6 @@ public class IndividualClassViewer extends JPanel {
     }
 
     private void showEditPackageDialog() {
-        // Build list of available packages
         java.util.ArrayList<ClassPackage> packages = Teacher.getInstance().getPackages();
         
         if (packages.isEmpty()) {
@@ -180,7 +179,6 @@ public class IndividualClassViewer extends JPanel {
             return;
         }
 
-        // Create combo box with package options
         String[] packageNames = new String[packages.size() + 1];
         packageNames[0] = "None";
         int selectedIndex = 0;
@@ -210,7 +208,6 @@ public class IndividualClassViewer extends JPanel {
             
             Database.saveTeacherClasses(Teacher.getInstance().getAllClasses());
             
-            // Update display
             setSelectedClass(selectedClass);
             
             JOptionPane.showMessageDialog(this, 

@@ -184,7 +184,6 @@ public class IndividualProfileViewer extends JPanel {
             @Override
             public void onDateClicked(int year, int month, int day) {
                 super.onDateClicked(year, month, day);
-                // Open student date viewer for enrolling in classes
                 StudentDateViewer.getInstance().setStudent(currentProfile);
                 StudentDateViewer.getInstance().setDate(LocalDate.of(year, month, day));
                 StudentDateViewer.getInstance().refreshDisplay();
@@ -209,7 +208,6 @@ public class IndividualProfileViewer extends JPanel {
         ageValue.setText(Integer.toString(sp.getAge()));
         balanceValue.setText(Double.toString(sp.getBalance()));
         currentProfile = sp;
-        // Update calendar to show this student's enrolled classes
         studentCalendarPanel.setCurrentStudent(sp);
     }
 

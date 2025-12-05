@@ -154,7 +154,6 @@ public class ArtClassCreation extends JPanel {
         lengthInput.setMaximumSize(new Dimension(Integer.MAX_VALUE, 50));
         contentPanel.add(lengthInput);
 
-        // Package auto-generation option
         JCheckBox autoGenerateCheckbox = new JCheckBox("Auto-generate from package (creates weekly classes)");
         autoGenerateCheckbox.setFont(new Font("Arial", Font.PLAIN, 20));
         autoGenerateCheckbox.setBackground(new Color(0xe6e6fa));
@@ -179,11 +178,9 @@ public class ArtClassCreation extends JPanel {
         packageSelector.setEnabled(false);
         contentPanel.add(packageSelector);
 
-        // Enable/disable package selector based on checkbox
         autoGenerateCheckbox.addActionListener(e -> {
             packageSelector.setEnabled(autoGenerateCheckbox.isSelected());
             if (autoGenerateCheckbox.isSelected()) {
-                // Populate packages
                 packageSelector.removeAllItems();
                 packageSelector.addItem("-- Select a Package --");
                 for (ClassPackage pkg : Teacher.getInstance().getPackages()) {
@@ -204,19 +201,16 @@ public class ArtClassCreation extends JPanel {
                 int classCapacity = Integer.parseInt(capacityInput.getText());
 
                 if (autoGenerateCheckbox.isSelected() && packageSelector.getSelectedIndex() > 0) {
-                    // Auto-generate classes based on package
                     ArrayList<ClassPackage> packages = Teacher.getInstance().getPackages();
                     ClassPackage selectedPkg = packages.get(packageSelector.getSelectedIndex() - 1);
                     int numClasses = selectedPkg.getQuantity();
                     
-                    // Create classes for the next N weeks, skipping blocked days
                     int classesCreated = 0;
                     int weeksOffset = 0;
                     while (classesCreated < numClasses) {
                         LocalDate classDate = selectedDate.plusWeeks(weeksOffset);
                         weeksOffset++;
                         
-                        // Skip blocked days (breaks and holidays)
                         if (Teacher.getInstance().isBlockedDay(classDate)) {
                             continue;
                         }
@@ -228,7 +222,6 @@ public class ArtClassCreation extends JPanel {
                         classesCreated++;
                     }
                 } else {
-                    // Create single class
                     Teacher.getInstance().addArtClass(new ArtClass(
                         className,
                         classCapacity,

@@ -20,9 +20,6 @@ import frontend.home.Home;
 import frontend.util.PageNames;
 import frontend.viewer.IndividualPackageViewer;
 
-/**
- * ClassPackageOverview displays all class packages and provides a button to create new packages.
- */
 public class ClassPackageOverview extends JPanel {
     private static ClassPackageOverview instance = null;
     
@@ -86,9 +83,6 @@ public class ClassPackageOverview extends JPanel {
         refreshPackages();
     }
 
-    /**
-     * Refreshes the list of packages displayed.
-     */
     public void refreshPackages() {
         contentPanel.removeAll();
         

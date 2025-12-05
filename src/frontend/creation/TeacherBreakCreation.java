@@ -22,9 +22,6 @@ import frontend.ManagerFrame;
 import frontend.home.Home;
 import frontend.util.PageNames;
 
-/**
- * UI for creating teacher breaks with start and end date selection.
- */
 public class TeacherBreakCreation extends JPanel {
     private static TeacherBreakCreation instance = null;
 
@@ -83,7 +80,6 @@ public class TeacherBreakCreation extends JPanel {
         contentPanel = new JPanel();
         contentPanel.setLayout(new BoxLayout(contentPanel, BoxLayout.Y_AXIS));
 
-        // Title
         JLabel title = new JLabel("Add Teacher Break");
         title.setHorizontalAlignment(SwingConstants.CENTER);
         title.setAlignmentX(CENTER_ALIGNMENT);
@@ -93,7 +89,6 @@ public class TeacherBreakCreation extends JPanel {
         title.setMaximumSize(new Dimension(Integer.MAX_VALUE, 80));
         contentPanel.add(title);
 
-        // Start Date Section
         JLabel startLabel = new JLabel("Start Date:");
         startLabel.setHorizontalAlignment(SwingConstants.CENTER);
         startLabel.setAlignmentX(CENTER_ALIGNMENT);
@@ -136,7 +131,6 @@ public class TeacherBreakCreation extends JPanel {
 
         contentPanel.add(startDatePanel);
 
-        // End Date Section
         JLabel endLabel = new JLabel("End Date:");
         endLabel.setHorizontalAlignment(SwingConstants.CENTER);
         endLabel.setAlignmentX(CENTER_ALIGNMENT);
@@ -219,7 +213,6 @@ public class TeacherBreakCreation extends JPanel {
             "Break created from " + startDate + " to " + endDate + ".\nAny classes during this period have been removed.",
             "Break Created", JOptionPane.INFORMATION_MESSAGE);
 
-        // Return to home
         Home.getInstance().getCalendarPanel().updateCalendar();
         ManagerFrame.getInstance().setContentPane(Home.getInstance());
         ManagerFrame.getInstance().revalidate();

@@ -81,7 +81,6 @@ public class StudentProfileOverview extends JPanel {
                 sortProfilesAlphabetically();
             }
         });
-        // optionsPanel.add(sortProfiles);
         
         contentPanel = new JPanel();
         contentPanel.setLayout(new BoxLayout(contentPanel, BoxLayout.Y_AXIS));

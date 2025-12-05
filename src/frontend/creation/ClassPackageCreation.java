@@ -21,9 +21,6 @@ import frontend.ManagerFrame;
 import frontend.overview.ClassPackageOverview;
 import frontend.util.PageNames;
 
-/**
- * ClassPackageCreation allows the teacher to create a new class package.
- */
 public class ClassPackageCreation extends JPanel {
     private static ClassPackageCreation instance = null;
     
@@ -70,7 +67,6 @@ public class ClassPackageCreation extends JPanel {
         contentPanel = new JPanel();
         contentPanel.setLayout(new BoxLayout(contentPanel, BoxLayout.Y_AXIS));
 
-        // Package Name
         JLabel nameLabel = new JLabel("Package Name:");
         nameLabel.setHorizontalAlignment(SwingConstants.CENTER);
         nameLabel.setFont(new Font("Arial", Font.PLAIN, 24));
@@ -87,7 +83,6 @@ public class ClassPackageCreation extends JPanel {
         nameInput.setMaximumSize(new Dimension(Integer.MAX_VALUE, 50));
         contentPanel.add(nameInput);
 
-        // Number of Classes
         JLabel quantityLabel = new JLabel("Number of Classes:");
         quantityLabel.setHorizontalAlignment(SwingConstants.CENTER);
         quantityLabel.setFont(new Font("Arial", Font.PLAIN, 24));
@@ -104,7 +99,6 @@ public class ClassPackageCreation extends JPanel {
         quantityInput.setMaximumSize(new Dimension(Integer.MAX_VALUE, 50));
         contentPanel.add(quantityInput);
 
-        // Price
         JLabel priceLabel = new JLabel("Price ($):");
         priceLabel.setHorizontalAlignment(SwingConstants.CENTER);
         priceLabel.setFont(new Font("Arial", Font.PLAIN, 24));
@@ -127,7 +121,6 @@ public class ClassPackageCreation extends JPanel {
                 String quantityText = quantityInput.getText().trim();
                 String priceText = priceInput.getText().trim();
 
-                // Validation
                 if (name.isEmpty()) {
                     JOptionPane.showMessageDialog(saveButton, "Please enter a package name.", "Input Error", JOptionPane.ERROR_MESSAGE);
                     return;
@@ -157,16 +150,13 @@ public class ClassPackageCreation extends JPanel {
                     return;
                 }
 
-                // Create and save package
                 ClassPackage newPackage = new ClassPackage(name, quantity, price);
                 Teacher.getInstance().addPackage(newPackage);
 
-                // Clear inputs
                 nameInput.setText("");
                 quantityInput.setText("");
                 priceInput.setText("");
 
-                // Navigate back
                 ClassPackageOverview.getInstance().refreshPackages();
                 ManagerFrame.getInstance().setContentPane(ClassPackageOverview.getInstance());
                 ManagerFrame.getInstance().revalidate();
