@@ -6,14 +6,23 @@ import java.awt.event.WindowEvent;
 import javax.swing.JFrame;
 import backend.Database;
 import backend.Teacher;
+import frontend.home.Home;
+import frontend.home.Login;
+import frontend.overview.StudentProfileOverview;
+import frontend.util.PageNames;
 
 public class ManagerFrame extends JFrame {
     private static ManagerFrame instance = null;
 
     private ManagerFrame() {        
-        this.add(StudentProfileOverview.getInstance());
-        this.add(Home.getInstance());
-        this.setTitle(PageNames.HOME);
+        // Initialize these panels but don't display them yet
+        StudentProfileOverview.getInstance();
+        Home.getInstance();
+        Home.getInstance().updateBalance();
+        
+        // Start with Login page
+        this.add(Login.getInstance());
+        this.setTitle(PageNames.LOGIN);
         this.setMinimumSize(new Dimension(1000, 750));
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.addWindowListener(new WindowAdapter() {

@@ -1,0 +1,12 @@
+[
+  {
+    "packageName": "TestPackA",
+    "classQuantity": 8,
+    "packagePrice": 500.0
+  },
+  {
+    "packageName": "TestPackC",
+    "classQuantity": 4,
+    "packagePrice": 300.0
+  }
+]

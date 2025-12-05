@@ -1,0 +1,121 @@
+package backend.model;
+
+import java.awt.Dimension;
+import java.awt.Font;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+
+import javax.swing.JButton;
+
+public class ArtClass {
+    private int capacity;
+    private LocalDateTime classDateTime;
+    private double lengthInHours;
+    private ClassPackage classPackage;
+    private String className;
+    private transient JButton classButton;
+    // Store student names as "FirstName|LastName" to avoid circular references with GSON
+    private ArrayList<String> enrolledStudentNames = new ArrayList<String>();
+    // Store absent student names as "FirstName|LastName" for attendance tracking
+    private ArrayList<String> absentStudentNames = new ArrayList<String>();
+
+    public ArtClass(String name, int capacity, LocalDateTime dt, double length) {
+        this.className = name;
+        this.capacity = capacity;
+        this.classDateTime = dt;
+        this.lengthInHours = length;
+        this.classButton = new JButton(name + "  |  " + dt.toLocalTime().toString() + "  |  " + length + " hrs  |  Capacity " + capacity);
+        this.classButton = new JButton(name + "  |  " + dt.toLocalTime().toString() + " - " + dt.toLocalTime().plusMinutes((long) (length * 60)) + "  |  Capacity " + capacity);
+        this.classButton.setFont(new Font("Arial", Font.PLAIN, 24));
+        this.classButton.setPreferredSize(new Dimension(200, 50));
+        this.classButton.setMinimumSize(new Dimension(200, 50));
+        this.classButton.setMaximumSize(new Dimension(Integer.MAX_VALUE, 50));
+    }
+
+    public void rebuildButton() {
+        this.classButton = new JButton(className + "  |  " + classDateTime.toLocalTime().toString() + " - " + classDateTime.toLocalTime().plusMinutes((long) (lengthInHours * 60)) + "  |  Capacity " + capacity);
+        this.classButton.setFont(new Font("Arial", Font.PLAIN, 24));
+        this.classButton.setPreferredSize(new Dimension(200, 50));
+        this.classButton.setMinimumSize(new Dimension(200, 50));
+        this.classButton.setMaximumSize(new Dimension(Integer.MAX_VALUE, 50));
+    }
+
+    public void setCapacity(int c) {this.capacity = c;}
+    public int getCapacity() {return this.capacity;}
+    public void setClassDateTime(LocalDateTime dt) {this.classDateTime = dt;}
+    public LocalDateTime getClassDateTime() {return this.classDateTime;}
+    public void setLengthInHours(double l) {this.lengthInHours = l;}
+    public double getLengthInHours() {return this.lengthInHours;}
+    public void setClassPackage(ClassPackage p) {this.classPackage = p;}
+    public ClassPackage getClassPackage() {return this.classPackage;}
+    public String getClassName() {return this.className;}
+    public JButton getButton() { if (this.classButton == null) rebuildButton(); return this.classButton;}
+    
+    public ArrayList<String> getEnrolledStudentNames() {
+        if (enrolledStudentNames == null) enrolledStudentNames = new ArrayList<String>();
+        return enrolledStudentNames;
+    }
+    
+    public int getEnrolledCount() {
+        if (enrolledStudentNames == null) return 0;
+        return enrolledStudentNames.size();
+    }
+    
+    public boolean isStudentEnrolled(StudentProfile s) {
+        if (enrolledStudentNames == null) return false;
+        String studentKey = s.getFirstName() + "|" + s.getLastName();
+        return enrolledStudentNames.contains(studentKey);
+    }
+    
+    public boolean isStudentEnrolled(String firstName, String lastName) {
+        if (enrolledStudentNames == null) return false;
+        String studentKey = firstName + "|" + lastName;
+        return enrolledStudentNames.contains(studentKey);
+    }
+    
+    public void enrollStudent(StudentProfile s) {
+        if (enrolledStudentNames == null) enrolledStudentNames = new ArrayList<String>();
+        String studentKey = s.getFirstName() + "|" + s.getLastName();
+        if (!enrolledStudentNames.contains(studentKey)) {
+            enrolledStudentNames.add(studentKey);
+        }
+    }
+    
+    public void unenrollStudent(StudentProfile s) {
+        if (enrolledStudentNames == null) return;
+        String studentKey = s.getFirstName() + "|" + s.getLastName();
+        enrolledStudentNames.remove(studentKey);
+    }
+
+    // Attendance tracking methods
+    public boolean isStudentAbsent(StudentProfile s) {
+        if (absentStudentNames == null) return false;
+        String studentKey = s.getFirstName() + "|" + s.getLastName();
+        return absentStudentNames.contains(studentKey);
+    }
+
+    public boolean isStudentAbsent(String firstName, String lastName) {
+        if (absentStudentNames == null) return false;
+        String studentKey = firstName + "|" + lastName;
+        return absentStudentNames.contains(studentKey);
+    }
+
+    public void markStudentAbsent(StudentProfile s) {
+        if (absentStudentNames == null) absentStudentNames = new ArrayList<String>();
+        String studentKey = s.getFirstName() + "|" + s.getLastName();
+        if (!absentStudentNames.contains(studentKey)) {
+            absentStudentNames.add(studentKey);
+        }
+    }
+
+    public void markStudentPresent(StudentProfile s) {
+        if (absentStudentNames == null) return;
+        String studentKey = s.getFirstName() + "|" + s.getLastName();
+        absentStudentNames.remove(studentKey);
+    }
+
+    public ArrayList<String> getAbsentStudentNames() {
+        if (absentStudentNames == null) absentStudentNames = new ArrayList<String>();
+        return absentStudentNames;
+    }
+}

@@ -5,6 +5,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.lang.reflect.Type;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -16,19 +17,34 @@ import com.google.gson.JsonPrimitive;
 import com.google.gson.JsonSerializer;
 import com.google.gson.reflect.TypeToken;
 
+import backend.model.ArtClass;
+import backend.model.ClassPackage;
+import backend.model.Payment;
+import backend.model.StudentProfile;
+import backend.model.TeacherBreak;
+
 public class Database {
 	private static final String DATA_DIR = "data";
 	private static final String PROFILES_FILE = DATA_DIR + File.separator + "profiles.json";
 	private static final String CLASSES_FILE = DATA_DIR + File.separator + "classes.json";
+	private static final String PACKAGES_FILE = DATA_DIR + File.separator + "packages.json";
+	private static final String PAYMENTS_FILE = DATA_DIR + File.separator + "payments.json";
+	private static final String BREAKS_FILE = DATA_DIR + File.separator + "breaks.json";
 
 	private static final Gson GSON;
 
 	static {
 		GsonBuilder builder = new GsonBuilder().setPrettyPrinting();
-		JsonSerializer<LocalDateTime> ser = (src, typeOfSrc, context) -> new JsonPrimitive(src.toString());
-		JsonDeserializer<LocalDateTime> deser = (json, typeOfT, context) -> LocalDateTime.parse(json.getAsString());
-		builder.registerTypeAdapter(LocalDateTime.class, ser);
-		builder.registerTypeAdapter(LocalDateTime.class, deser);
+		// LocalDateTime adapter
+		JsonSerializer<LocalDateTime> dtSer = (src, typeOfSrc, context) -> new JsonPrimitive(src.toString());
+		JsonDeserializer<LocalDateTime> dtDeser = (json, typeOfT, context) -> LocalDateTime.parse(json.getAsString());
+		builder.registerTypeAdapter(LocalDateTime.class, dtSer);
+		builder.registerTypeAdapter(LocalDateTime.class, dtDeser);
+		// LocalDate adapter
+		JsonSerializer<LocalDate> dateSer = (src, typeOfSrc, context) -> new JsonPrimitive(src.toString());
+		JsonDeserializer<LocalDate> dateDeser = (json, typeOfT, context) -> LocalDate.parse(json.getAsString());
+		builder.registerTypeAdapter(LocalDate.class, dateSer);
+		builder.registerTypeAdapter(LocalDate.class, dateDeser);
 		GSON = builder.create();
 	}
 
@@ -85,5 +101,46 @@ public class Database {
 			ac.rebuildButton();
 		}
 		return classes;
+	}
+
+	// ClassPackage persistence
+	public static boolean saveClassPackages(ArrayList<ClassPackage> packages) {
+		return saveList(packages, PACKAGES_FILE);
+	}
+
+	public static ArrayList<ClassPackage> loadClassPackages() {
+		return loadList(PACKAGES_FILE, ClassPackage.class);
+	}
+
+	// Payment persistence
+	public static boolean savePayments(ArrayList<Payment> payments) {
+		return saveList(payments, PAYMENTS_FILE);
+	}
+
+	public static ArrayList<Payment> loadPayments() {
+		return loadList(PAYMENTS_FILE, Payment.class);
+	}
+
+	// Export payments to CSV
+	public static boolean exportPaymentsToCSV(ArrayList<Payment> payments, String filename) {
+		try (FileWriter writer = new FileWriter(filename)) {
+			writer.write(Payment.getCSVHeader() + "\n");
+			for (Payment p : payments) {
+				writer.write(p.toCSV() + "\n");
+			}
+			return true;
+		} catch (IOException e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
+
+	// TeacherBreak persistence
+	public static boolean saveTeacherBreaks(ArrayList<TeacherBreak> breaks) {
+		return saveList(breaks, BREAKS_FILE);
+	}
+
+	public static ArrayList<TeacherBreak> loadTeacherBreaks() {
+		return loadList(BREAKS_FILE, TeacherBreak.class);
 	}
 }
